@@ -15,9 +15,6 @@ use App\Models\User;
 |
 */
 
-Route::get('/users', function() {
-    if(rand(1, 10) < 3) {
-        abort(500, 'We could not retrieve the users');
-    }
-    return User::factory()->count(10)->make();
+Route::namespace('api')->group(function() {
+    Route::get('/users', 'UsersController@index');
 });
