@@ -1963,29 +1963,94 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+var getUsers = function getUsers(callback) {
+  var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users?page=".concat(page)).then(function (response) {
+    callback && callback(response);
+  })["catch"](function (error) {
+    var msg = error.response.data.message || error.message;
+    callback && callback(error, msg);
+  });
+};
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      loading: false,
       users: null,
-      error: null
+      error: null,
+      meta: null
     };
   },
-  created: function created() {
-    this.fetchData();
+  computed: {
+    pagination: function pagination() {
+      if (!this.meta) {
+        return;
+      }
+
+      return "".concat(this.meta.current_page, " of ").concat(this.meta.last_page);
+    },
+    prevPage: function prevPage() {
+      if (!this.meta || this.meta.current_page == 1) {
+        return;
+      }
+
+      return this.meta.current_page - 1;
+    },
+    nextPage: function nextPage() {
+      if (!this.meta || this.meta.current_page == this.meta.last_page) {
+        return;
+      }
+
+      return this.meta.current_page + 1;
+    }
+  },
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    getUsers(function (_ref, err) {
+      var data = _ref.data;
+      next(function (vm) {
+        vm.setData(data, err);
+      });
+    });
+  },
+  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
+    var _this = this;
+
+    getUsers(function (_ref2, err) {
+      var data = _ref2.data;
+
+      _this.setData(data, err);
+    }, to.query.page);
   },
   methods: {
-    fetchData: function fetchData() {
-      var _this = this;
-
-      this.error = this.users = null;
-      this.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/users').then(function (response) {
-        _this.loading = false;
-        _this.users = response.data.data;
-      })["catch"](function (error) {
-        _this.loading = false;
-        _this.error = error.response.data.message || error.message;
+    setData: function setData(data, error) {
+      if (error) {
+        this.error = error;
+      } else {
+        this.error = null;
+        this.users = data.data;
+        this.meta = data.meta;
+      }
+    },
+    refresh: function refresh() {
+      this.$router.push({
+        query: {
+          page: this.meta && this.meta.current_page || 1
+        }
+      });
+    },
+    goPrev: function goPrev() {
+      this.$router.push({
+        query: {
+          page: this.prevPage
+        }
+      });
+    },
+    goNext: function goNext() {
+      this.$router.push({
+        query: {
+          page: this.nextPage
+        }
       });
     }
   }
@@ -37678,12 +37743,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "users" }, [
-    _vm.loading
-      ? _c("div", { staticClass: "loading" }, [
-          _vm._v("\n        Loading...\n    ")
-        ])
-      : _vm._e(),
-    _vm._v(" "),
     _vm.error
       ? _c("div", { staticClass: "error" }, [
           _c("p", [_vm._v(_vm._s(_vm.error))]),
@@ -37695,7 +37754,7 @@ var render = function() {
                 on: {
                   click: function($event) {
                     $event.preventDefault()
-                    return _vm.fetchData($event)
+                    return _vm.refresh($event)
                   }
                 }
               },
@@ -37720,7 +37779,21 @@ var render = function() {
           }),
           0
         )
-      : _vm._e()
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "button",
+      { attrs: { disabled: !_vm.prevPage }, on: { click: _vm.goPrev } },
+      [_vm._v("前一页")]
+    ),
+    _vm._v(" "),
+    _c("span", [_vm._v(_vm._s(_vm.pagination))]),
+    _vm._v(" "),
+    _c(
+      "button",
+      { attrs: { disabled: !_vm.nextPage }, on: { click: _vm.goNext } },
+      [_vm._v("后一页")]
+    )
   ])
 }
 var staticRenderFns = []

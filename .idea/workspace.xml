@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7236f9c7-757e-4157-8cce-05a1eed22c03" name="Default Changelist" comment="init">
+    <list default="true" id="7236f9c7-757e-4157-8cce-05a1eed22c03" name="Default Changelist" comment="调用真实数据">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/UsersIndex.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/UsersIndex.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +162,11 @@
       <updated>1603270121639</updated>
       <workItem from="1603270122756" duration="4280000" />
       <workItem from="1603352143413" duration="4220000" />
-      <workItem from="1603441795342" duration="3125000" />
+      <workItem from="1603441795342" duration="3254000" />
+      <workItem from="1603865991699" duration="21000" />
+      <workItem from="1603866111926" duration="266000" />
+      <workItem from="1603866532296" duration="96000" />
+      <workItem from="1603952180306" duration="8397000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1603441850565</created>
@@ -174,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603441850565</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="调用真实数据">
+      <created>1603446423243</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1603446423243</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,7 +192,8 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="调用真实数据" />
+    <option name="LAST_COMMIT_MESSAGE" value="调用真实数据" />
   </component>
   <component name="WindowStateProjectService">
     <state x="465" y="252" key="#Notifications" timestamp="1603352235967">
@@ -195,9 +204,10 @@
       <screen x="0" y="23" width="1440" height="801" />
     </state>
     <state x="229" y="60" key="SettingsEditor/0.23.1440.801@0.23.1440.801" timestamp="1603361294481" />
-    <state x="320" y="161" key="Vcs.Push.Dialog.v2" timestamp="1603441876647">
-      <screen x="0" y="23" width="1440" height="801" />
+    <state x="320" y="162" key="Vcs.Push.Dialog.v2" timestamp="1603446430242">
+      <screen x="0" y="23" width="1440" height="806" />
     </state>
     <state x="320" y="161" key="Vcs.Push.Dialog.v2/0.23.1440.801@0.23.1440.801" timestamp="1603441876647" />
+    <state x="320" y="162" key="Vcs.Push.Dialog.v2/0.23.1440.806@0.23.1440.806" timestamp="1603446430242" />
   </component>
 </project>
