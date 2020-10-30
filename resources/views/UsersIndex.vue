@@ -11,15 +11,16 @@
         </div>
 
         <ul v-if="users">
-            <li v-for="{ name, email } in users">
+            <li v-for="{ name, email, id } in users">
                 <strong>Name:</strong> {{ name }},
                 <strong>Email:</strong> {{ email }}
+                <router-link :to="{name: 'users.edit', params: {id} }">edit</router-link>
             </li>
 
         </ul>
-        <button :disabled="!prevPage" @click="goPrev">前一页</button>
+        <button class="btn btn-primary" :disabled="!prevPage" @click="goPrev">前一页</button>
         <span>{{ pagination }}</span>
-        <button :disabled="!nextPage" @click="goNext">后一页</button>
+        <button class="btn btn-primary" :disabled="!nextPage" @click="goNext">后一页</button>
     </div>
 </template>
 <script>
