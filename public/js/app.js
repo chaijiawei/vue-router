@@ -1963,14 +1963,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       user: {
         name: '',
-        email: ''
-      }
+        email: '',
+        id: ''
+      },
+      saving: false,
+      loading: true,
+      message: null,
+      errors: null
     };
   },
   created: function created() {
@@ -1979,11 +1997,31 @@ __webpack_require__.r(__webpack_exports__);
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/users/' + this.$route.params.id).then(function (_ref) {
       var data = _ref.data;
       _this.user = data;
+    }).then(function () {
+      return _this.loading = false;
     });
   },
   methods: {
     back: function back() {
       this.$router.back();
+    },
+    update: function update() {
+      var _this2 = this;
+
+      this.saving = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/users/' + this.user.id, {
+        name: this.user.name,
+        email: this.user.email
+      }).then(function (response) {
+        _this2.message = '更新成功';
+        setTimeout(function () {
+          return _this2.message = null;
+        }, 2000);
+      })["catch"](function (error) {
+        _this2.errors = error.response.data.errors;
+      }).then(function () {
+        return _this2.saving = false;
+      });
     }
   }
 });
@@ -37854,76 +37892,115 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("form", [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "name" } }, [_vm._v("用户名")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.user.name,
-              expression: "user.name"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { id: "name", type: "text" },
-          domProps: { value: _vm.user.name },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+    _vm.loading ? _c("div", [_vm._v("\n        loading...\n    ")]) : _vm._e(),
+    _vm._v(" "),
+    !_vm.loading
+      ? _c(
+          "form",
+          {
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.update($event)
               }
-              _vm.$set(_vm.user, "name", $event.target.value)
             }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "email" } }, [_vm._v("邮箱")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.user.email,
-              expression: "user.email"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { id: "email", type: "text" },
-          domProps: { value: _vm.user.email },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.user, "email", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("更新")]),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "ml-4",
-          attrs: { href: "#" },
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.back($event)
-            }
-          }
-        },
-        [_vm._v("返回")]
-      )
-    ])
+          },
+          [
+            _vm.message
+              ? _c("div", { staticClass: "alert alert-success" }, [
+                  _vm._v("\n            " + _vm._s(_vm.message) + "\n        ")
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.errors
+              ? _c(
+                  "div",
+                  { staticClass: "alert alert-danger" },
+                  _vm._l(_vm.errors, function(error, name) {
+                    return _c("ul", [_c("li", [_vm._v(_vm._s(error[0]))])])
+                  }),
+                  0
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "name" } }, [_vm._v("用户名")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.user.name,
+                    expression: "user.name"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { id: "name", type: "text" },
+                domProps: { value: _vm.user.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.user, "name", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "email" } }, [_vm._v("邮箱")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.user.email,
+                    expression: "user.email"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { id: "email", type: "text" },
+                domProps: { value: _vm.user.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.user, "email", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "submit", disabled: _vm.saving }
+              },
+              [_vm._v("更新")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "ml-4",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.back($event)
+                  }
+                }
+              },
+              [_vm._v("返回")]
+            )
+          ]
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
