@@ -24,9 +24,9 @@
     </div>
 </template>
 <script>
-import axios from 'axios';
+import api from '../api/user'
 const getUsers = (callback, page = 1) => {
-    axios.get(`/api/users?page=${page}`)
+    api.all({page})
         .then(response => {
             callback && callback(response)
         }).catch(error => {
@@ -34,6 +34,8 @@ const getUsers = (callback, page = 1) => {
             callback && callback(error, msg)
         })
 };
+
+
 export default {
     data() {
         return {

@@ -23,12 +23,13 @@
                 <input class="form-control" id="email" type="text" v-model="user.email">
             </div>
             <button type="submit" :disabled="saving" class="btn btn-primary">更新</button>
+            <button :disabled="saving" @click="deleteUser" class="btn btn-danger" >删除</button>
             <a class="ml-4" href="#" @click.prevent="back">返回</a>
         </form>
     </div>
 </template>
 <script>
-import axios from 'axios';
+import api from '../api/user'
 
 export default {
     data() {
@@ -46,10 +47,14 @@ export default {
     },
 
     created() {
-        axios.get('/api/users/' + this.$route.params.id)
+        api.find(this.$route.params.id)
             .then(({data}) => {
                 this.user = data
-            }).then(() => this.loading = false);
+            })
+            .catch(error => {
+                this.$router.push({name: '404'})
+            })
+            .then(() => this.loading = false);
     },
     methods: {
         back(){
@@ -58,7 +63,7 @@ export default {
 
         update(){
             this.saving = true;
-            axios.put('/api/users/' + this.user.id, {
+            api.update(this.user.id, {
                 name: this.user.name,
                 email: this.user.email
             }).then(response => {
@@ -67,6 +72,17 @@ export default {
             }).catch( error => {
                 this.errors = error.response.data.errors
             }).then(()=> this.saving = false);
+        },
+
+        deleteUser(){
+            this.saving = true;
+            api.delete(this.user.id)
+                .then(response => {
+                    this.message = '删除用户成功'
+                    setTimeout(()=> {
+                        this.$router.push({name: 'users.index'})
+                    }, 2000)
+                })
         }
     },
 }

@@ -29,4 +29,10 @@ class UsersController extends Controller
         $user->update($data);
         return new UserResource($user);
     }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return response(null, 204);
+    }
 }
