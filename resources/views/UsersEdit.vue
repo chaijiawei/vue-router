@@ -58,7 +58,7 @@ export default {
     },
     methods: {
         back(){
-            this.$router.back()
+            this.$router.push({name: 'users.index'})
         },
 
         update(){

@@ -35,4 +35,15 @@ class UsersController extends Controller
         $user->delete();
         return response(null, 204);
     }
+
+    public function store(Request  $request)
+    {
+        $data = $this->validate($request, [
+            'name' => ['required', 'string', 'max:255', Rule::unique('users')],
+            'email' => ['required', 'string', 'email', Rule::unique('users')]
+        ]);
+        $data['password'] = bcrypt('password');
+        $user = User::query()->create($data);
+        return new UserResource($user);
+    }
 }

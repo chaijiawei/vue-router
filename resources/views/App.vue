@@ -12,9 +12,13 @@
                     <router-link active-class="active" class="nav-link" :to="{ name: 'hello' }">Hello World</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link active-class="active" class="nav-link" :to="{ name: 'users.index' }">Users</router-link>
+                    <router-link active-class="active" class="nav-link" exact :to="{ name: 'users.index' }">Users</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link active-class="active" class="nav-link" :to="{ name: 'users.create' }">Create</router-link>
                 </li>
             </ul>
+
         </header>
 
         <main class="py-4">
